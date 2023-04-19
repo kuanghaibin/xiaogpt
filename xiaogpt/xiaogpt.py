@@ -97,12 +97,6 @@ class MiGPT:
                 start = time.perf_counter()
                 await self.polling_event.wait()
 
-                new_record = self.last_record
-                # 优化体验，如有必要尽早停掉小爱的回答
-                if (self.new_record_event.is_set()
-                        and self.need_ask_gpt(new_record)
-                        and self.config.mute_xiaoai):
-                    await self.stop_if_xiaoai_is_playing()
                 if (d := time.perf_counter() - start) < 0.5:
                     # sleep to avoid too many request
                     await asyncio.sleep(0.5 - d)
@@ -470,12 +464,12 @@ class MiGPT:
                     continue
 
                 # drop 帮我回答
-                query = re.sub(rf"^({'|'.join(self.config.keyword)})", "", query)
+                # query = re.sub(rf"^({'|'.join(self.config.keyword)})", "", query)
 
                 print("-" * 20)
                 print("问题：" + query + "？")
                 if not self.chatbot.history:
-                    query = f"{query}，{self.config.prompt}"
+                    query = f"{self.config.prompt} {query}"
                 if self.config.mute_xiaoai:
                     await self.stop_if_xiaoai_is_playing()
                 else:
