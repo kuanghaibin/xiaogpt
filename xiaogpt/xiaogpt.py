@@ -220,6 +220,7 @@ class MiGPT:
         return (
             self.in_conversation
             and not query.startswith(WAKEUP_KEYWORD)
+            or any(keyword in query for keyword in self.config.keyword)
             or query.startswith(tuple(self.config.keyword))
         )
 
@@ -309,7 +310,7 @@ class MiGPT:
         self.log.info(f"Serving on {self.hostname}:{self.port}")
 
     async def text2mp3(self, text, tts_lang):
-        communicate = edge_tts.Communicate(text, tts_lang)
+        communicate = edge_tts.Communicate(text, tts_lang, rate="+10%", volume="+40%")
         duration = 0
         with tempfile.NamedTemporaryFile(
             "wb", suffix=".mp3", delete=False, dir=self.temp_dir.name
