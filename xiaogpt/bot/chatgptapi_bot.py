@@ -1,5 +1,6 @@
 import openai
 from rich import print
+from pprint import pprint
 
 from xiaogpt.bot.base_bot import BaseBot
 from xiaogpt.utils import split_sentences
