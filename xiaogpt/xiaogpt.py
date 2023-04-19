@@ -96,9 +96,16 @@ class MiGPT:
                 await self.get_latest_ask_from_xiaoai(session)
                 start = time.perf_counter()
                 await self.polling_event.wait()
-                if (d := time.perf_counter() - start) < 1:
+
+                new_record = self.last_record
+                # 优化体验，如有必要尽早停掉小爱的回答
+                if (self.new_record_event.is_set()
+                        and self.need_ask_gpt(new_record)
+                        and self.config.mute_xiaoai):
+                    await self.stop_if_xiaoai_is_playing()
+                if (d := time.perf_counter() - start) < 0.5:
                     # sleep to avoid too many request
-                    await asyncio.sleep(1 - d)
+                    await asyncio.sleep(0.5 - d)
 
     async def init_all_data(self, session):
         await self.login_miboy(session)
