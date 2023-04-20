@@ -441,7 +441,7 @@ class MiGPT:
                 query = new_record.get("query", "").strip()
 
                 # 切换模型
-                if "更换模型" in query:
+                if "模型" in query:
                     if "gpt-3.5" in self.config.gpt_options["model"]:
                         self.config.gpt_options["model"]="gpt-4-0314"
                         await self.do_tts(f"当前模型为gpt4")
