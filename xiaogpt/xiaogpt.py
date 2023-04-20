@@ -440,6 +440,19 @@ class MiGPT:
                 self.polling_event.clear()  # stop polling when processing the question
                 query = new_record.get("query", "").strip()
 
+                # 切换模型
+                if "切换模型" in query:
+                    if "gpt-3.5" in self.config.gpt_options["model"]:
+                        self.config.gpt_options["model"]="gpt-4-0314"
+                        await self.do_tts(f"当前模型为gpt4")
+                    elif "gpt-4" in self.config.gpt_options["model"]:
+                        self.config.gpt_options["model"]="gpt-3.5-turbo"
+                        await self.do_tts(f"当前模型为chatgpt")
+                    await asyncio.sleep(2)
+                    await self.stop_if_xiaoai_is_playing()
+                    print(f"当前模型参数:`{self.config.gpt_options}`")
+                    continue
+
                 if query == self.config.start_conversation:
                     if not self.in_conversation:
                         print("开始对话")
