@@ -448,7 +448,13 @@ class MiGPT:
                     elif "gpt-4" in self.config.gpt_options["model"]:
                         self.config.gpt_options["model"]="gpt-3.5-turbo"
                         await self.do_tts(f"当前模型为chatgpt")
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(1)
+                    await self.stop_if_xiaoai_is_playing()
+                    print(f"当前模型参数:`{self.config.gpt_options}`")
+                    continue
+
+                if "清空上下文" in query:
+                    self.chatbot.history = []
                     await self.stop_if_xiaoai_is_playing()
                     print(f"当前模型参数:`{self.config.gpt_options}`")
                     continue
