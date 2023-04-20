@@ -43,7 +43,7 @@ class ChatGPTBot(BaseBot):
         self.history.append([f"{query}", message])
         # only keep 5 history
         first_history = self.history.pop(0)
-        self.history = [first_history] + self.history[-5:]
+        self.history = [first_history] + self.history[-2:]
         print(message)
         return message
 
@@ -79,4 +79,4 @@ class ChatGPTBot(BaseBot):
             print()
             self.history.append([f"{query}", message])
             first_history = self.history.pop(0)
-            self.history = [first_history] + self.history[-5:]
+            self.history = [first_history] + self.history[-2:]
