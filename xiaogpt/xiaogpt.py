@@ -444,18 +444,17 @@ class MiGPT:
                 if "模型" in query:
                     if "gpt-3.5" in self.config.gpt_options["model"]:
                         self.config.gpt_options["model"]="gpt-4-0314"
-                        await self.do_tts(f"当前模型为gpt4")
+                        await self.do_tts(f"当前模型为gpt4", wait_for_finish=True)
                     elif "gpt-4" in self.config.gpt_options["model"]:
                         self.config.gpt_options["model"]="gpt-3.5-turbo"
-                        await self.do_tts(f"当前模型为chatgpt")
-                    await asyncio.sleep(1)
+                        await self.do_tts(f"当前模型为chatgpt", wait_for_finish=True)
                     await self.stop_if_xiaoai_is_playing()
                     print(f"当前模型参数:`{self.config.gpt_options}`")
                     continue
 
                 if "上下文" in query:
                     self.chatbot.history = []
-                    await self.do_tts(f"清理上下文成功")
+                    await self.do_tts(f"清理上下文成功", wait_for_finish=True)
                     await self.stop_if_xiaoai_is_playing()
                     continue
 
