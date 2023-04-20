@@ -455,6 +455,7 @@ class MiGPT:
 
                 if "上下文" in query:
                     self.chatbot.history = []
+                    await self.do_tts(f"清理上下文成功")
                     await self.stop_if_xiaoai_is_playing()
                     continue
 
