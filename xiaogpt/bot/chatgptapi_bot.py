@@ -53,7 +53,6 @@ class ChatGPTBot(BaseBot):
             ms.append({"role": "user", "content": h[0]})
             ms.append({"role": "assistant", "content": h[1]})
         ms.append({"role": "user", "content": f"{query}"})
-        pprint(ms)
         kwargs = {"model": "gpt-3.5-turbo", **options}
         if openai.api_type == "azure":
             kwargs["deployment_id"] = self.deployment_id

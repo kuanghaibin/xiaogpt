@@ -484,7 +484,7 @@ class MiGPT:
                 # drop 帮我回答
                 # query = re.sub(rf"^({'|'.join(self.config.keyword)})", "", query)
 
-                print("-" * 120)
+                print("-" * 80)
                 print("问题：" + query + "？")
                 if not self.chatbot.history:
                     query = f"{self.config.prompt} {query}"
