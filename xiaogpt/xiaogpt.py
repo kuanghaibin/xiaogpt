@@ -441,7 +441,7 @@ class MiGPT:
                 query = new_record.get("query", "").strip()
 
                 # 切换模型
-                if "切换模型" in query:
+                if "更换模型" in query:
                     if "gpt-3.5" in self.config.gpt_options["model"]:
                         self.config.gpt_options["model"]="gpt-4-0314"
                         await self.do_tts(f"当前模型为gpt4")
@@ -453,10 +453,9 @@ class MiGPT:
                     print(f"当前模型参数:`{self.config.gpt_options}`")
                     continue
 
-                if "清空上下文" in query:
+                if "上下文" in query:
                     self.chatbot.history = []
                     await self.stop_if_xiaoai_is_playing()
-                    print(f"当前模型参数:`{self.config.gpt_options}`")
                     continue
 
                 if query == self.config.start_conversation:
@@ -485,7 +484,7 @@ class MiGPT:
                 # drop 帮我回答
                 # query = re.sub(rf"^({'|'.join(self.config.keyword)})", "", query)
 
-                print("-" * 20)
+                print("-" * 120)
                 print("问题：" + query + "？")
                 if not self.chatbot.history:
                     query = f"{self.config.prompt} {query}"
