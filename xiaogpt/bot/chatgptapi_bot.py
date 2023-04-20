@@ -41,7 +41,7 @@ class ChatGPTBot(BaseBot):
             .decode()
         )
         self.history.append([f"{query}", message])
-        # only keep 5 history
+        # only keep 2 history
         first_history = self.history.pop(0)
         self.history = [first_history] + self.history[-2:]
         print(message)
@@ -54,8 +54,6 @@ class ChatGPTBot(BaseBot):
             ms.append({"role": "assistant", "content": h[1]})
         ms.append({"role": "user", "content": f"{query}"})
         kwargs = {"model": "gpt-3.5-turbo", **options}
-        pprint(ms)
-        pprint(kwargs)
         if openai.api_type == "azure":
             kwargs["deployment_id"] = self.deployment_id
         completion = await openai.ChatCompletion.acreate(
