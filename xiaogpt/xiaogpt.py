@@ -291,7 +291,7 @@ class MiGPT:
         while True:
             if not await self.get_if_xiaoai_is_playing():
                 break
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.3)
 
     def start_http_server(self):
         # set the port range
